@@ -1,0 +1,13 @@
+zh-CN:
+  devise:
+    sessions:
+      user:
+        send_instructions: 邮件发送成功!
+    mailer:
+      login_code:
+        submit: 登录验证码
+        your_login_code: "您的登录验证码为: %{code}"
+    failure:
+      user:
+        login_code_expired: 验证码过期，已重新发送验证码
+        invalid_login_code: 验证码错误
