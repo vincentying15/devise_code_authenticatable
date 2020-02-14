@@ -14,10 +14,9 @@ module DeviseCodeAuthenticatable
         Devise.mailer.send :include, Devise::Mailers::Helpers
       end
     end
-    # # extend mapping with after_initialize because it's not reloaded
-    # config.after_initialize do
-    #   Devise::Mapping.send :prepend, DeviseCodeAuthenticatable::Mapping
-    #   Devise::ParameterSanitizer.send :prepend, DeviseCodeAuthenticatable::ParameterSanitizer
-    # end
+    # extend mapping with after_initialize because it's not reloaded
+    config.after_initialize do
+      Devise::ParameterSanitizer.send :prepend, DeviseCodeAuthenticatable::ParameterSanitizer
+    end
   end
 end

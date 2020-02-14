@@ -4,51 +4,45 @@ module Devise
       extend ActiveSupport::Concern
 
       included do
+        has_many :login_codes
       end
 
-      class_methods do
-        def send_login_code(resource_params)
-          resource = self.find_by(resource_params)
-          if resource
-            resource.resend_login_code
-            resource
-          else
-            self.new(resource_params)
-          end
+      def login_code
+        existing_login_code&.code
+      end
+
+      def send_code_login_instructions
+        login_code = existing_login_code || generate_login_code
+        send_devise_notification(:code_login_instructions, login_code, {})
+      end
+
+      def existing_login_code
+        latest_code = login_codes.last
+        if latest_code && !latest_code.expired?
+          login_codes.last
+        else
+          nil
         end
-
       end
 
-      def resend_login_code
-        code = login_code || regenerate_login_code
-        send_devise_notification(:login_instructions, code, {})
-      end
-
-      def regenerate_login_code
-        self.update(
-          login_code: rand(10000..99999),
-          login_code_retry_time: 0,
-          login_code_created_at: Time.now
-        )
-        login_code
-      end
-
-      def login_code_expired?
-        expire_in = 5.minute
-        retry_time_limit = 5
-
-        !(Time.now < self.login_code_created_at + expire_in && \
-        self.login_code_retry_time.to_i < retry_time_limit)
-      end
-
-      def valid_login_code?(login_code)
-        unless login_code_expired?
-          self.update(login_code_retry_time: (self.login_code_retry_time.to_i + 1))
-          self.login_code == login_code
-        end
+      def generate_login_code
+        login_codes.create!.code
       end
 
       def after_code_authentication
+        expire_all_login_codes
+      end
+
+      def expire_all_login_codes
+        login_codes.each &:expire_now
+      end
+
+      module ClassMethods
+        def send_code_login_instructions(attributes={})
+          code_authenticatable = find_or_initialize_with_errors(send_login_token_keys, attributes, :not_found)
+          code_authenticatable.send_code_login_instructions if code_authenticatable.persisted?
+          code_authenticatable
+        end
       end
 
     end
