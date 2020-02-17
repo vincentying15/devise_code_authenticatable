@@ -1,0 +1,15 @@
+<h2><%= t(".sign_in") %></h2>
+<%= simple_form_for resource, url: verify_user_login_code_path(@login_code) do |f| %>
+  <div class="field">
+    <%= f.input :email, placeholder: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.input :login_code, placeholder: "code" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit t(".sign_in"), class: "btn btn-brand btn-elevate btn-pill" %>
+  </div>
+<% end %>
+<%= link_to t(".resend_code"), resend_user_login_code_path(@login_code) %>

@@ -1,0 +1,8 @@
+<h2><%= t(".sign_in") %></h2>
+<%= simple_form_for resource, url: new_session_path(resource_name) do |f| %>
+
+  <%= f.input :email, placeholder: "email" %>
+
+  <%= f.submit t(".send_code"), class: "btn btn-brand btn-elevate btn-pill" %>
+
+<% end %>

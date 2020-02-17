@@ -1,14 +1,14 @@
 zh-CN:
   devise:
-    sessions:
-      user:
-        send_instructions: 邮件发送成功!
     login_codes:
       new:
         sign_in: 登录
       show:
         sign_in: 登录
         resend_code: 重新发送验证码
+    sessions:
+      new:
+        send_code: 发送验证码
       user:
         send_instructions: 邮件发送成功!
         signed_in: 登录成功！
