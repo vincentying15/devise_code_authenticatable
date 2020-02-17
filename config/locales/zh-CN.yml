@@ -6,6 +6,8 @@ zh-CN:
       show:
         sign_in: 登录
         resend_code: 重新发送验证码
+      user:
+        signed_in: 登录成功
     sessions:
       new:
         send_code: 发送验证码
