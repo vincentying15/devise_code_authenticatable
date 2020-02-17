@@ -3,7 +3,7 @@ module DeviseCodeAuthenticatable
     extend ActiveSupport::Concern
 
     included do
-      belongs_to :user
+      belongs_to :resource, polymorphic: true
 
       after_initialize :default_values
     end
@@ -12,7 +12,6 @@ module DeviseCodeAuthenticatable
       self.code           ||= rand(10000..99999)
       self.expired        ||= false
       self.retry_times    ||= 0
-      self.deliver_method ||= "email"
     end
 
     def verify(code)

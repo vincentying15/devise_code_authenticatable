@@ -4,7 +4,7 @@ module Devise
       extend ActiveSupport::Concern
 
       included do
-        has_many :login_codes
+        has_many :login_codes, as: :resource
       end
 
       def login_code
