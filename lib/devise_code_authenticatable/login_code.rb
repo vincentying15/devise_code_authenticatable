@@ -3,6 +3,7 @@ module DeviseCodeAuthenticatable
     extend ActiveSupport::Concern
 
     included do
+      extend ClassMethods
       belongs_to :resource, polymorphic: true
 
       after_initialize :default_values
@@ -32,6 +33,10 @@ module DeviseCodeAuthenticatable
 
     def expire_now
       self.expired = true; save
+    end
+
+    module ClassMethods
+      Devise::Models.config(self, :login_codes)
     end
 
   end

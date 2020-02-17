@@ -8,21 +8,18 @@ module Devise
       end
 
       def login_code
-        existing_login_code&.code
+        existing_login_code
       end
 
       def send_code_login_instructions
         login_code = existing_login_code || generate_login_code
         send_devise_notification(:code_login_instructions, login_code, {})
+        self
       end
 
       def existing_login_code
-        latest_code = login_codes.last
-        if latest_code && !latest_code.expired?
-          login_codes.last
-        else
-          nil
-        end
+        login_code = login_codes.last
+        login_code && !login_code.expired? ? login_code.code : nil
       end
 
       def generate_login_code

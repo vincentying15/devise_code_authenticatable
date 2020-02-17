@@ -10,8 +10,8 @@ class Devise::LoginCodesController < DeviseController
   end
 
   def show
-    email = LoginCode.find(params[:id]).user.email
-    @login_code_id = params[:id]
+    @login_code = LoginCode.find(params[:id])
+    email = @login_code.resource.email
     self.resource = resource_class.new(email: email)
   end
 
