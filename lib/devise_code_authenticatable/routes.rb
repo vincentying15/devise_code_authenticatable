@@ -6,6 +6,7 @@ module ActionDispatch::Routing
     def devise_login_code(mapping, controllers)
       resources :login_codes, only: [:show] do
         member do
+          get :resend
           post :verify
         end
       end

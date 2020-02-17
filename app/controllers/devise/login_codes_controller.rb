@@ -15,6 +15,15 @@ class Devise::LoginCodesController < DeviseController
     self.resource = resource_class.new(email: email)
   end
 
+  def resend
+    @login_code = LoginCode.find(params[:id])
+    self.resource = @login_code.resource.send_code_login_instructions
+    if successfully_sent?(resource)
+    end
+
+    redirect_to after_sending_login_code_path_for(resource_name, resource)
+  end
+
   protected
     def auth_options
       :code_authenticatable
@@ -31,4 +40,7 @@ class Devise::LoginCodesController < DeviseController
       { methods: methods, only: [:login_code] }
     end
 
+    def after_sending_login_code_path_for(resource_name, resource)
+      login_code_path(resource_name, resource.login_codes.last) if is_navigational_format?
+    end
 end
