@@ -4,7 +4,7 @@ module DeviseCodeAuthenticatable
 
       def default_controllers(options)
         options[:controllers] ||= {}
-        options[:controllers][:sessions] = 'devise_code_authenticatable/sessions'
+        options[:controllers][:sessions] ||= 'devise_code_authenticatable/sessions'
         super
       end
   end

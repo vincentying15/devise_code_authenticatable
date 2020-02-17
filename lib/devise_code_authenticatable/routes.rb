@@ -4,7 +4,8 @@ module ActionDispatch::Routing
   protected
 
     def devise_login_code(mapping, controllers)
-      resources :login_codes, only: [:show] do
+      resources :login_codes, only: [:show],
+      controller: controllers[:login_codes] do
         member do
           get :resend
           post :verify

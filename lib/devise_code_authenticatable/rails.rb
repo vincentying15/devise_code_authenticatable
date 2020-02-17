@@ -16,6 +16,7 @@ module DeviseCodeAuthenticatable
     end
     # extend mapping with after_initialize because it's not reloaded
     config.after_initialize do
+      Devise::Mapping.send :prepend, DeviseCodeAuthenticatable::Mapping
       Devise::ParameterSanitizer.send :prepend, DeviseCodeAuthenticatable::ParameterSanitizer
     end
   end
