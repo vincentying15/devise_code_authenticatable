@@ -5,9 +5,12 @@ class DeviseCodeAuthenticatable::SessionsController < Devise::SessionsController
     yield resource if block_given?
 
     if successfully_sent?(resource)
+      respond_with(resource, location: after_sending_login_code_path_for(resource_name, resource))
+    else
+      set_flash_message!(:alert, "send_mail_failed")
+      respond_with(resource)
     end
 
-    respond_with(resource, location: after_sending_login_code_path_for(resource_name, resource))
   end
 
   protected
