@@ -9,18 +9,22 @@ module DeviseCodeAuthenticatable
         hashed = false
         login_code = params[scope].fetch "login_code", ""
 
-        if resource.login_codes.last.expired?
-          resource.generate_login_code
-          resource.send_code_login_instructions
-          fail(:login_code_expired)
-        end
-
-        if validate(resource){ hashed = true; resource.login_codes.last.verify(login_code) }
-          remember_me(resource)
-          resource.after_code_authentication
-          success!(resource)
+        if resource.nil?
+          fail(:not_found_in_database)
         else
-          fail(:invalid_login_code)
+          if resource.login_codes.last.expired?
+            resource.generate_login_code
+            resource.send_code_login_instructions
+            fail(:login_code_expired)
+          end
+
+          if validate(resource){ hashed = true; resource.login_codes.last.verify(login_code) }
+            remember_me(resource)
+            resource.after_code_authentication
+            success!(resource)
+          else
+            fail(:invalid_login_code)
+          end
         end
       end
 

@@ -8,11 +8,13 @@ zh-CN:
         resend_code: 重新发送验证码
       user:
         signed_in: 登录成功
+        send_instructions: "邮件发送成功！"
     sessions:
       new:
         send_code: 发送验证码
       user:
         send_instructions: 邮件发送成功!
+        send_mail_failed: 邮件发送失败
         signed_in: 登录成功！
     mailer:
       login_code:
