@@ -1,0 +1,18 @@
+en:
+  devise:
+    sessions:
+      new:
+        send_code: Send code
+      user:
+        send_instructions: "You will receive an email with login code."
+        send_mail_failed: "Fail to send mail, does the email exist?"
+    failure:
+      invalid_login_code: Invalid code
+    login_codes:
+      show:
+        sign_in: Sign In
+      user:
+        signed_in: "Successfully signed in!"
+    mailer:
+      login_code:
+        your_login_code: "Your login code: %{code}"
