@@ -12,7 +12,7 @@ module DeviseCodeAuthenticatable
         if resource.nil?
           fail(:not_found_in_database)
         else
-          if resource.login_codes.last.expired?
+          if resource.login_codes.last.nil? || resource.login_codes.last.expired?
             resource.generate_login_code
             resource.send_code_login_instructions
             fail(:login_code_expired)
