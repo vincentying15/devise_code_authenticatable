@@ -18,14 +18,14 @@ Run:
 rails generate devise_code_authenticatable:install
 ```
 
-This will create a migration file name in your <tt>db/migrate</tt> folder, then
- 
+This will create a migration file name in your `db/migrate` folder, then
+
 
 ```ruby
 rails db:migrate
 ```
 ### Devise Configuration
-Add <tt>:authenticatable</tt> to the model you want to enable code_authenticatable
+Add `:authenticatable` to the model you want to enable code_authenticatable, also make sure `:database_authenticatable` is removed
 
 ```ruby
 class User < ActiveRecord::Base
@@ -39,9 +39,6 @@ This plugin is included with basic views, to customize the views you need to run
 ```bash
 rails generate devise_code_authenticatable:views
 ```
-
-### Login by password
-The existing <tt>Devise::SessionsController</tt> would be override, so you can not login by your password 
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
