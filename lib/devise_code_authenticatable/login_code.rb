@@ -24,6 +24,10 @@ module DeviseCodeAuthenticatable
       self.code == code
     end
 
+    def used?
+      expired
+    end
+
     def expired?
       retry_time_limit = 5
       expire_at = (self.created_at || Time.now) + 10.minutes
