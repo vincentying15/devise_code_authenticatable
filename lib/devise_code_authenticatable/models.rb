@@ -11,6 +11,9 @@ module Devise
         def send_login_token_keys
           [:email]
         end
+
+        Devise::Models.config(self, :retry_limit)
+        Devise::Models.config(self, :expire_time)
       end
 
     end

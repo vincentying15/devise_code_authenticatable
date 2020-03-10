@@ -29,8 +29,8 @@ module DeviseCodeAuthenticatable
     end
 
     def expired?
-      retry_time_limit = 5
-      expire_at = (self.created_at || Time.now) + 10.minutes
+      retry_time_limit = self.class.retry_limit
+      expire_at = (self.created_at || Time.now) + self.class.expire_time
 
       self.expired = self.expired || Time.now.after?(expire_at) || self.retry_times.to_i > retry_time_limit
     end
@@ -40,7 +40,8 @@ module DeviseCodeAuthenticatable
     end
 
     module ClassMethods
-      Devise::Models.config(self, :login_codes)
+      Devise::Models.config(self, :retry_limit)
+      Devise::Models.config(self, :expire_time)
     end
 
   end
