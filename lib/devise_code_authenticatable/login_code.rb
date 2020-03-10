@@ -17,7 +17,7 @@ module DeviseCodeAuthenticatable
 
     def verify(code)
       if expired?
-        raise ActiveModel::Errors "expired code should never be validated!"
+        return false
       end
 
       self.retry_times += 1; save
