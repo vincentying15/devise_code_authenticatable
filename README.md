@@ -11,20 +11,18 @@ Add this line to your Rails Gemfile:
 gem 'devise_code_authenticatable'
 ```
 
-### Automatic installation
 Run:
 
 ```bash
 rails generate devise_code_authenticatable:install
 ```
 
-This will create a migration file name in your `db/migrate` folder, then
+This will create a migration file in your `db/migrate` folder, then
 
 
 ```ruby
 rails db:migrate
 ```
-### Devise Configuration
 Add `:authenticatable` to the model you want to enable code_authenticatable, also make sure `:database_authenticatable` is removed
 
 ```ruby
