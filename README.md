@@ -1,9 +1,6 @@
 # DeviseCodeAuthenticatable
 A Devise plugin for two-factor authenticatable.
 
-## Demo
-An example rails app to use this plugin is setup in [demo](https://github.com/vincentying15/demo_for_devise_code_authenticatable)
-
 ## Installation
 Add this line to your Rails Gemfile:
 
