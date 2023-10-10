@@ -24,7 +24,6 @@ module DeviseCodeAuthenticatable
 
         if validate(resource){ hashed = true; resource.login_codes.last.verify(login_code) }
           remember_me(resource)
-          yield resource if block_given?
           resource.after_code_authentication
           success!(resource)
         else
