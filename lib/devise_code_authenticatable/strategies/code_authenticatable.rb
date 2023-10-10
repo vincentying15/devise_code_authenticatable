@@ -14,17 +14,17 @@ module DeviseCodeAuthenticatable
         end
 
         if resource.login_codes.empty?
-          resource.send_code_login_instructions
           fail(:login_code_expired); return
         end
 
         if resource.login_codes.last.expired?
-          resource.send_code_login_instructions unless resource.login_codes.last.used?
+          resource.expire_all_login_codes
           fail(:login_code_expired); return
         end
 
         if validate(resource){ hashed = true; resource.login_codes.last.verify(login_code) }
           remember_me(resource)
+          yield resource if block_given?
           resource.after_code_authentication
           success!(resource)
         else
