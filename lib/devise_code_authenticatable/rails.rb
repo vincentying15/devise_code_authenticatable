@@ -18,6 +18,7 @@ module DeviseCodeAuthenticatable
     config.after_initialize do
       Devise::Mapping.send :prepend, DeviseCodeAuthenticatable::Mapping
       Devise::ParameterSanitizer.send :prepend, DeviseCodeAuthenticatable::ParameterSanitizer
+      Devise::FailureApp.send :prepend, DeviseCodeAuthenticatable::FailureAppExt
     end
   end
 end

@@ -3,6 +3,7 @@ module DeviseCodeAuthenticatable
   autoload :Mailer, 'devise_code_authenticatable/mailer'
   autoload :Mapping, 'devise_code_authenticatable/mapping'
   autoload :ParameterSanitizer, 'devise_code_authenticatable/parameter_sanitizer'
+  autoload :FailureAppExt, 'devise_code_authenticatable/failure_app_ext'
   module Controllers
     autoload :Sessions, 'devise_code_authenticatable/controllers/sessions'
     autoload :Helpers, 'devise_code_authenticatable/controllers/helpers'

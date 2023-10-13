@@ -6,7 +6,6 @@ module DeviseCodeAuthenticatable
 
       def authenticate!
         resource = mapping.to.find_for_authentication(authentication_hash)
-        hashed = false
         login_code = params[scope].fetch "login_code", ""
 
         if resource.nil?
@@ -22,7 +21,7 @@ module DeviseCodeAuthenticatable
           fail(:login_code_expired); return
         end
 
-        if validate(resource){ hashed = true; resource.login_codes.last.verify(login_code) }
+        if validate(resource){ resource.login_codes.last.verify(login_code) }
           remember_me(resource)
           yield resource if block_given?
           resource.after_code_authentication

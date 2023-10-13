@@ -4,11 +4,12 @@ class DeviseCodeAuthenticatable::SessionsController < Devise::SessionsController
     self.resource = resource_class.send_code_login_instructions(resource_params)
     yield resource if block_given?
 
+    flash.clear 
     if successfully_sent?(resource)
-      respond_with(resource, location: after_sending_login_code_path_for(resource_name, resource))
+      respond_with resource, location: after_sending_login_code_path_for(resource_name, resource)
     else
       set_flash_message!(:alert, "send_mail_failed")
-      respond_with(resource)
+      respond_with resource, location: after_sign_in_path_for(resource)
     end
 
   end

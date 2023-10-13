@@ -1,11 +1,12 @@
 class Devise::LoginCodesController < DeviseController
   prepend_before_action :allow_params_authentication!, only: :verify
 
-  def verify(&block)
-    self.resource = warden.authenticate!(auth_options, &block)
+  def verify
+    self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
-    respond_with resource, location: after_sign_in_path_for(resource)
+    redirect_to after_sign_in_path_for(resource)
+
   end
 
   def show
@@ -18,9 +19,8 @@ class Devise::LoginCodesController < DeviseController
     @login_code = LoginCode.find(params[:id])
     self.resource = @login_code.resource.send_code_login_instructions
     if successfully_sent?(resource)
+      redirect_to after_sending_login_code_path_for(resource_name, resource)
     end
-
-    redirect_to after_sending_login_code_path_for(resource_name, resource)
   end
 
   protected

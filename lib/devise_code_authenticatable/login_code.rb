@@ -20,7 +20,7 @@ module DeviseCodeAuthenticatable
         return false
       end
 
-      self.retry_times += 1; save
+      self.retry_times += 1; save!
       self.code == code
     end
 
